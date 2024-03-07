@@ -1,0 +1,35 @@
+
+    {%extends 'user/details.html'%} {% block user_details%}
+    <div>
+        <div> 
+            {% for followed_user in user.following%}
+            <div>
+                <div>
+                    <div>
+                        <div>
+                            <img src="{{followed_user.header_image_url}}" alt="">
+                        </div>
+                        <div>
+                            <a href="/users/{{followed_user.id}}">
+                                <img src="{{followed_user.image_url}}" alt="Image for {{followed_user.username}}">
+                                <p>@{{followed_user.username}}</p>
+                            </a>
+                            {% if g.user.is_following(followed_user)%}
+                            <form method="POST" action="/users/stop-following{{followed_user.id}}">
+                                <button>Unfollow</button>
+                            </form>
+                            {%else%}
+                            <form method="POST" action="/users/follow{{followed_user.id}}">
+                                <button>Follow</button>
+                            </form>
+                            {%endif%}
+                        </div>
+                        <p>{{followed_user.bio}}</p>
+                    </div>
+                </div>
+            </div>
+            {%endfor%}
+        </div>
+    </div>
+
+{%endblock%} 

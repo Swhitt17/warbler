@@ -1,0 +1,64 @@
+{% extends 'base.html'%}
+{% block title %}Signed in Homepage{% endblock %}
+{% block content %} 
+
+
+<div>
+    <aside>
+        <div>  
+            <div>
+                <div>
+                    <img src="{{g.user.header_image_url}}" alt="">
+                </div>
+                <a href="/users/{{g.user.id}}">
+                    <img src="{{g.user,image_url}}" alt="Image for {{g.user.username}}">
+                    <p>@{{g.user.username}}</p>
+                </a>
+                <ul>
+                    <li>
+                        <p>Messages</p>
+                        <h4>
+                            <a href="/users/{{g.user.id}}">{{g.user.messages|length}}</a>
+                        </h4>
+                    </li>
+                    <li>
+                        <p>Following</p>
+                        <h4>
+                            <a href="/users/{{g.user.id}}/following">{{g.user.following|length}}</a>
+                        </h4>
+                    </li>
+                    <li>
+                        <p>Followers</p>
+                        <h4>
+                            <a href="/users/{{g.user.id}}/followers">{{g.user.followers|length}}</a>
+                        </h4>
+                    </li> 
+                </ul>
+            </div>
+        </div>
+    </aside>
+    <div>
+        <ul>
+            {% for msg in messages%}
+            <li>
+                <a href="/messages/{{msg.id}}"></a>
+                <a href="/users/{{msg.user.id}}">
+                    <img src="{{msg.user.image_url}}" alt="">
+                </a>
+                <div>
+                    <a href="/users/{{msg.user.id}}">@{{msg.user.username}}</a>
+                    <span>{{msg.timestamp.strftime('%d %B %Y')}}</span>
+                    <p>{{msg.text}}</p>
+                </div>
+                <form method="POST" action="/users/add_like/{{msg.id}}">
+                    <button>
+                      <i></i>  
+                    </button>
+                    
+                </form>
+            </li>
+            {%endfor%}
+        </ul>
+    </div>
+</div>
+{%endblock%}

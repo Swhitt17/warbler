@@ -1,0 +1,73 @@
+{% extends 'base.html'%}
+{% block title %}{{user.username}}{% endblock %}
+{% block content %} 
+
+<div></div>
+<img src="{{user.image_url}}" alt="{{user.username}}">
+
+<div>
+    <div>
+        <div>
+            <div>
+                <ul>
+                    <li>
+                        <p>Messages</p>
+                        <h4>
+                            <a href="/users/{{user.id}}">{{user.messages | length}}</a>
+                        </h4>
+                    </li>
+                    <li>
+                        <p>Following</p>
+                        <h4>
+                            <a href="/users/{{user.id}}/following">{{user.following | length}}</a>
+                        </h4>
+                    </li>
+                    <li>
+                        <p>Followers</p>
+                        <h4>
+                            <a href="/users/{{user.id}}/followers">{{user.followers | length}}</a>
+                        </h4>
+                    </li>
+                    <li>
+                        <p>Likes</p>
+                        <h4>
+                            <a href="/users/{{user.id}}/likes">{{user.likes | length}}</a>
+                        </h4>
+                    </li>
+                    <div>
+                        {% if g.user.id == user.id%}
+                        <a href="/users/profile">Edit Profile</a>
+                        <form method="POST" action="/user/delete">
+                            <button>Delete Profile</button>
+                        </form>
+                        {% elif g.user%}{%if g.user.is_following(user)%}
+                        <form method="POST" action="/users/stop-following/{{user.id}}">
+                            <button>Unfollow</button>
+                        </form>
+                        {%else%}
+                        <form method="POST" action="/users/follow/{{user.id}}">
+                            <button>Follow</button>
+                        </form>
+                        {%endif%}{%endif%}
+                    </div>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div>
+    <div>
+        <h4>@{{user.username}}</h4>
+        <p>{{user.bio}}</p>
+        <p>
+            <span></span>
+            {{user.location}}
+        </p>
+    </div>
+    {% block user_details%} {%endblock%}
+</div>
+
+
+{%endblock%} 

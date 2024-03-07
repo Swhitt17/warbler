@@ -1,0 +1,43 @@
+{% extends 'base.html'%}
+{% block title %}Following{% endblock %}
+{% block content %}
+{% if users|length == 0 %}
+
+<h3>Sorry, no users found</h3>
+{%else%}
+
+
+<div>
+  <div>
+    <div> 
+        {% for user in users%}
+        <div>
+            <div>
+                <div>
+                    <div>
+                        <img src="{{user.header_image_url}}" alt="">
+                    </div>
+                    <div>
+                        <a href="/users/{{user.id}}">
+                            <img src="{{user.image_url}}" alt="Image for {{user.username}}">
+                            <p>@{{user.username}}</p>
+                        </a>
+                         {%if g.user%}{% if g.user.is_following(user)%}
+                        <form method="POST" action="/users/stop-following{{user.id}}">
+                            <button>Unfollow</button>
+                        </form>
+                        {%else%}
+                        <form method="POST" action="/users/follow{{user.id}}">
+                            <button>Follow</button>
+                        </form>
+                        {%endif%}{%endif%}
+                    </div>
+                    <p>{{user.bio}}</p>
+                </div>
+            </div>
+        </div>
+        {%endfor%}
+    </div>
+  </div>
+</div>
+ {%endif%}{%endblock%}
