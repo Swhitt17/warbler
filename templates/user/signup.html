@@ -1,16 +1,15 @@
 {% extends 'base.html'%}
-{% block title %}Sign Up{% endblock %}
 {% block body_class%} onboarding {%endblock%}
 {% block content %}
 
-<div>
-    <div>
-        <h2> Join Warbler today</h2>
-        <form method="POST" action="">
+<div class="row justify-content-md-center">
+    <div class="col-md-7 col-lg-5">
+        <h2 class="join-message"> Join Warbler today</h2>
+        <form method="POST" id="user_form">
             {{ form.hidden_tag()}}{% for field in form if field.widget.input_type != 'hidden'%}{%for field in form.errors%}
-            <span>{{error}}</span>
+            <span class="text-danger">{{error}}</span>
             {%endfor%} {{ field(placeholder= field.label.text)}}  {%endfor%}
-            <button>Sign me up!</button>
+            <button class="btn btn-primary btn-lg btn-block">Sign me up!</button>
         </form>
     </div>
 </div>

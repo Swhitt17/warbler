@@ -1,21 +1,20 @@
 {% extends 'base.html'%}
-{% block title %}Edit Profile{% endblock %}
 {% block content %} 
 
-<div>
-    <div>
-        <h2>Edit Profile</h2>
-        <form method="POST">
+<div class="row justify-content-md-center">
+    <div class="col-md-4">
+        <h2 class="join-message">Edit Profile</h2>
+        <form method="POST" id="user_form">
             {{ form.hidden_tag()}}{% for field in form if field.widget.input_type != 'hidden' and field.name!= 'password'%}{%for field in form.errors%}
-            <span>{{error}}</span>
+            <span class="text-danger">{{error}}</span>
              {%endfor%} {{ field(placeholder = field.label.text)}}  {%endfor%}
             <p> To confirm changes, enter your password: </p>
             {% if form.password.errors%} {% for error in form.password.errors%}
-            <span>{{error}}</span>
+            <span class="text-danger">{{error}}</span>
             {%endfor%} {%endif%} {{form.password(placeholder="Enter your password to confirm")}}
-            <div>
-                <button>Edit this user</button>
-                <a href="/users/{{user_id}}">Cancel</a>
+            <div class="edit-btn-area">
+                <button class="btn btn-success">Edit this user</button>
+                <a href="/users/{{user_id}}" class="btn btn-outline-secondary">Cancel</a>
             </div>
         </form>      
     </div>
